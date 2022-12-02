@@ -1,0 +1,106 @@
+const mongoose = require("mongoose")
+
+const latestVehicleStatusSchema = new mongoose.Schema({
+    displayId:{
+        type:String,
+        default:''
+    },
+    companyId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Company',
+        required:[true,'Please add company id'],
+    },
+    driverId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Driver'
+    },
+    vehicleId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Vehicle'
+    },
+    eventCode:{
+        type:String,
+        enum:['PERIODIC','TRIP_START','TRIP_END','BLE_OFF','BLE_ON','ENG_OFF','ENG_ON'],
+        default:'BLE_OFF',
+        required:true
+    },
+    location:{
+        type:String,
+        default:''
+    },
+    lat:{
+        type:String,
+        default:''
+    },
+    lng:{
+        type:String,
+        default:''
+    },
+    state:{
+        type:String,
+        default:''
+    },
+    speed:{
+        type:Number,
+        default:0
+    },
+    heading:{
+        type:String,
+        default:''
+    },
+    odometer:{
+        type:String,
+        default:''
+    },
+    engineHours:{
+        type:String,
+        default:''
+    },
+    fuelLevel:{
+        type:String,
+        default:''
+    },
+    source:{
+        type:String,
+        default:'ELD'
+    },
+    timestamp:{
+        type:Date
+    },
+    status:{
+        type:String,
+        enum:['INACTIVE','STATIONARY','IN_MOTION'],
+        default:'INACTIVE'
+    },
+    online:{
+        type:Boolean,
+        default:true
+    },
+    createdBy:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'User'
+    },
+    updatedBy:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'User'
+    },
+    createdAt:{
+        type:Date,
+        default: Date.now
+    },
+    updatedAt:{
+        type:Date,
+        default: Date.now
+    },
+    isActive:{
+        type:Boolean,
+        default:true
+    },
+    isDeleted:{
+        type:Boolean,
+        default:false
+    }
+})
+
+const LatestVehicleStatus = mongoose.model('LatestVehicleStatus',latestVehicleStatusSchema)
+module.exports = LatestVehicleStatus
